@@ -1,9 +1,6 @@
 mod bank_utils;
 use std::io;
 
-// pub use crate::bank_utils;
-
-
 fn main() {
 
     let mut guess = String::new();
@@ -13,6 +10,17 @@ fn main() {
 
     io::stdin().read_line(&mut guess).expect("failed to get input");
 
+    guess = guess.to_lowercase();
 
-    bank_utils::create_new_user("temp".to_string());
+
+    if guess == "r".to_string(){
+        println!("register");
+        
+    } else if guess == "l" {
+        println!("login");
+        
+    } else {
+        println!("Invalid input!");
+        return
+    }
 }
