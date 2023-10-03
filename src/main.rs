@@ -40,7 +40,54 @@ fn register(){
 
 
 fn play(){
-    
+
+    let mut heads:bool = false;
+    let mut tails:bool = false;
+
+    println!("You have {} dollars", unsafe { MONEY });
+    println!("How much would you like to bet?");
+    let mut bet = String::new();
+    io::stdin().read_line(&mut bet).expect("failed to get input");
+
+    let bet:u32 = bet.trim().parse().expect("failed to parse");
+
+    if bet > unsafe { MONEY } {
+        println!("You don't have enough money to bet that much");
+        return;
+    }
+
+    let mut side_to_bet = String::new();
+    println!("Would you like to bet on (H)eads or (T)ails or (E)xit? ");
+    io::stdin().read_line(&mut side_to_bet).expect("failed to get input");
+
+    side_to_bet = side_to_bet.trim().to_string().to_lowercase();
+
+    match &side_to_bet[..] {
+        "h" => heads = true,
+        "t" => tails = true,
+        "e" => return,
+        _ => println!("Invalid input"),
+    }
+
+    if heads == false && tails == false {
+        return;
+    }
+
+    let mut rng = rand::thread_rng();
+    let flip = rng.gen_range(0..2);
+
+    if flip == 0 && heads == true {
+        println!("You win!");
+        unsafe { MONEY += bet };
+    } else if flip == 1 && tails == true {
+        println!("You win!");
+        unsafe { MONEY += bet };
+    } else {
+        println!("You lose!");
+        unsafe { MONEY -= bet };
+    }
+
+
 }
 
 fn main() {
