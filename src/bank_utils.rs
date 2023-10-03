@@ -27,3 +27,13 @@ pub fn get_balance(username: String) -> u32 {
 
     return balance;
 }
+
+pub fn save_balance(username: String, balance: u32) {
+    let file_name = format!("{username}.bank");
+    let mut data_file = File::create(file_name).expect("creation failed");
+
+    // Write contents to the file
+    data_file
+        .write(balance.to_string().as_bytes())
+        .expect("write failed");
+}

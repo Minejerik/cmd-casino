@@ -6,6 +6,8 @@ static mut MONEY: u32 = 100;
 
 static mut CAN_PLAY: bool = false;
 
+static mut USERNAME: String = String::new();
+
 fn clean_name(name: String) -> String {
     let temp = name
         .trim()
@@ -26,6 +28,8 @@ fn login() {
         .expect("failed to get input");
 
     username = clean_name(username);
+
+    unsafe { USERNAME = username.clone() };
 
     unsafe { MONEY = bank_utils::get_balance(username) };
 }
@@ -62,7 +66,7 @@ fn play() {
 
         if bet > unsafe { MONEY } {
             println!("You don't have enough money to bet that much");
-            return;
+            break;
         }
 
         let mut side_to_bet = String::new();
@@ -76,12 +80,12 @@ fn play() {
         match &side_to_bet[..] {
             "h" => heads = true,
             "t" => tails = true,
-            "e" => return,
+            "e" => break,
             _ => println!("Invalid input"),
         }
 
         if heads == false && tails == false {
-            return;
+            break;;
         }
 
         let mut rng = rand::thread_rng();
@@ -98,6 +102,7 @@ fn play() {
             unsafe { MONEY -= bet };
         }
     }
+
 }
 
 fn main() {
