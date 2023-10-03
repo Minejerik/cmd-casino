@@ -3,6 +3,8 @@ use std::io;
 
 static mut MONEY: u32 = 100;
 
+static mut CAN_PLAY: bool = false;
+
 fn clean_name(name: String) -> String {
     let temp = name.trim().to_string().replace(" ", "_").replace("\n", "").to_lowercase();
     return temp;
@@ -10,6 +12,7 @@ fn clean_name(name: String) -> String {
 
 fn login(){
     let mut username = String::new();
+    unsafe { CAN_PLAY = true };
 
     println!("Please enter a username:");
     io::stdin().read_line(&mut username).expect("failed to get input");
@@ -21,6 +24,7 @@ fn login(){
 
 fn register(){
     let mut username = String::new();
+    unsafe { CAN_PLAY = true };
 
     println!("Please enter a username:");
     io::stdin().read_line(&mut username).expect("failed to get input");
@@ -52,5 +56,8 @@ fn main() {
        _ => println!("Invalid input"),
    }
 
-   println!("Your balance is: {}", unsafe { MONEY })
+   if !unsafe { CAN_PLAY } {
+       return;
+   }
+   
 }
