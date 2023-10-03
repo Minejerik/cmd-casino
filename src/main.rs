@@ -85,7 +85,7 @@ fn play() {
         }
 
         if heads == false && tails == false {
-            break;;
+            break;
         }
 
         let mut rng = rand::thread_rng();
@@ -103,6 +103,8 @@ fn play() {
         }
     }
 
+
+    bank_utils::save_balance(unsafe { USERNAME.clone() }, unsafe { MONEY });
 }
 
 fn main() {
