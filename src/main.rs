@@ -10,17 +10,14 @@ fn main() {
 
     io::stdin().read_line(&mut guess).expect("failed to get input");
 
-    guess = guess.to_lowercase();
+
+    println!("{}", guess);
+
+    guess = guess.trim().to_string().to_lowercase();
 
 
-    if guess == "r".to_string(){
-        println!("register");
-        
-    } else if guess == "l" {
-        println!("login");
-        
-    } else {
-        println!("Invalid input!");
-        return
-    }
+   match &guess[..] {
+       "r" => println!("temp"),
+       _ => println!("Invalid input"),
+   }
 }
