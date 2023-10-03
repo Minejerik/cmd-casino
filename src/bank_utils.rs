@@ -12,3 +12,18 @@ pub fn create_new_user(username: String) {
         .write(def_mon.to_string().as_bytes())
         .expect("write failed");
 }
+
+
+pub fn get_balance(username: String) -> u32 {
+    let file_name = format!("{username}.bank");
+    let mut data_file = File::open(file_name).expect("open failed");
+
+    let mut contents = String::new();
+    data_file
+        .read_to_string(&mut contents)
+        .expect("read failed");
+
+    let balance:u32 = contents.parse().unwrap();
+
+    return balance;
+}
