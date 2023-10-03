@@ -1,5 +1,6 @@
 mod bank_utils;
 use std::io;
+use rand::Rng;
 
 static mut MONEY: u32 = 100;
 
@@ -37,6 +38,11 @@ fn register(){
 
 }
 
+
+fn play(){
+    
+}
+
 fn main() {
 
     let mut guess = String::new();
@@ -58,6 +64,8 @@ fn main() {
 
    if !unsafe { CAN_PLAY } {
        return;
+   } else {
+    play();
    }
-   
+
 }
